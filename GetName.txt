@@ -1,0 +1,36 @@
+import React from "react";
+import PropTypes from "prop-types";
+import classNames from "classnames";
+import styles from "./GetName.scss";
+
+GetName.propTypes = {
+    name: PropTypes.string,
+    lastName: PropTypes.string,
+    clickName: PropTypes.func
+}
+
+
+export default function GetName(props = {}) {
+    function sendParent(value){
+        const {clickName} =props;
+        clickName(value);
+    }
+
+    function render() {
+
+        const { name, lastName} = props;
+        const titleStyle = classNames(
+            styles.title,
+            { [styles.otherTitle]: lastName !== "" }
+        );
+
+        return (
+            <div className={styles.nameWrapper}>
+                <div className={titleStyle} onClick={()=>{sendParent("Ha dado click en nombre")}}>{name}</div>
+                <div className={styles.subTitle} onClick={()=>{sendParent("Ha dado click en apellido")}}>{lastName}</div>
+            </div>
+        );
+    }
+
+    return render();
+}
